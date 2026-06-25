@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Login</h2>
+
+    <input type="text" id="username" placeholder="Enter Username">
+
+    <input type="password" id="password" placeholder="Enter Password">
+
+    <button onclick="login()">Login</button>
+
+    <p>
+        Don't have an account?
+        <a href="register.html">Create Account</a>
+    </p>
+
+</div>
+
+<script>
+async function login() {
+
+    const user = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value
+    };
+
+    const response = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+    });
+
+    const result = await response.text();
+
+    alert(result);
+
+    if(result === "Login Successful"){
+        window.location.href = "home.html";
+    }
+}
+</script>
+
+</body>
+</html>
